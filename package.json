@@ -1,0 +1,25 @@
+{
+  "name": "mastra-project",
+  "version": "1.0.0",
+  "description": "Mastra AI project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "mastra dev",
+    "build": "mastra build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "mastra": "^0.17.0",
+    "mermaid": "^11.12.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^2.0.42",
+    "@mastra/core": "^0.21.1",
+    "zod": "^3.25.76"
+  }
+}

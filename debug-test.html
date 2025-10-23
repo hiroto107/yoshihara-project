@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <div id="status">Loading...</div>
+    <div id="error"></div>
+    
+    <script>
+        // API接続テスト
+        async function testAPI() {
+            const statusDiv = document.getElementById('status');
+            const errorDiv = document.getElementById('error');
+            
+            try {
+                statusDiv.textContent = 'Testing API connection...';
+                
+                const response = await fetch('/conversation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        topic: 'テスト会話',
+                        maxTurns: 2
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                statusDiv.textContent = 'API接続成功！';
+                statusDiv.innerHTML += '<br>レスポンス: ' + JSON.stringify(data, null, 2);
+                
+            } catch (error) {
+                statusDiv.textContent = 'API接続エラー';
+                errorDiv.textContent = 'エラー: ' + error.message;
+                console.error('API Error:', error);
+            }
+        }
+        
+        // ページ読み込み時にテスト実行
+        window.addEventListener('load', testAPI);
+    </script>
+</body>
+</html>
+
