@@ -1,52 +1,111 @@
-# Mastra AI プロジェクト
+# 冷泉荘くん × 山王マンションくん 会話ラボ
 
-このプロジェクトは Mastra AI フレームワークを使用した天気エージェントのサンプルです。
+福岡の2つのビルを擬人化したキャラクターが、お題について合意形成を目指すAI会話システムです。
+
+## 概要
+
+- **冷泉荘くん**: 中洲川端エリアのレトロビルを改修した文化交流拠点
+- **山王マンションくん**: 美野島エリアの築古分譲マンションをリノベしたコワーキングスペース
+- **最大20ターン**まで対話可能
+- **リアルタイム音声合成**対応（ElevenLabs）
+
+## 技術スタック
+
+### バックエンド
+- **Mastra AI**: AI エージェントフレームワーク
+- **OpenAI GPT-4o-mini**: 会話生成
+- **ElevenLabs**: 音声合成
+- **TypeScript**: 開発言語
+
+### フロントエンド
+- **React + Vite**: UI フレームワーク
+- **Tailwind CSS**: スタイリング
+- **TypeScript**: 開発言語
 
 ## セットアップ
 
-### 1. 環境変数の設定
+### 1. 依存関係のインストール
 
-`.env` ファイルを作成し、OpenAI API キーを設定してください：
+```bash
+# バックエンド
+npm install
+
+# フロントエンド
+cd frontend
+npm install
+```
+
+### 2. 環境変数の設定
+
+`.env` ファイルを作成し、APIキーを設定してください：
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key_here
+ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+ELEVENLABS_VOICE_REISEN=your_voice_id_for_reisen
+ELEVENLABS_VOICE_SANNO=your_voice_id_for_sanno
 ```
 
-### 2. 開発サーバーの起動
+### 3. 開発サーバーの起動
 
 ```bash
+# バックエンド（ポート4112）
+npm run dev
+
+# フロントエンド（ポート5173）
+cd frontend
 npm run dev
 ```
 
-これにより Mastra Development Server が起動し、Mastra Playground でエージェントをテストできます。
+### 4. アクセス
 
-### 3. ビルド
+- **フロントエンド**: http://localhost:5173
+- **バックエンドAPI**: http://localhost:4112
 
-```bash
-npm run build
-```
+## 使用方法
+
+1. **お題を入力**: テーマや課題を入力
+2. **会話開始**: 2つのキャラクターが交互に議論
+3. **合意形成**: 最大20ターンで合意を目指す
+4. **音声再生**: 各発話を音声で再生（ElevenLabs対応）
 
 ## プロジェクト構造
 
 ```
-src/
-├── mastra/
-│   ├── agents/
-│   │   └── weather-agent.ts    # 天気エージェント
-│   ├── tools/
-│   │   └── weather-tool.ts     # 天気ツール
-│   └── index.ts               # Mastra エントリポイント
-├── tsconfig.json              # TypeScript 設定
-└── package.json              # 依存関係
+├── src/
+│   ├── mastra/
+│   │   ├── agents/           # AIエージェント
+│   │   │   ├── reisen-agent.ts
+│   │   │   └── sanno-agent.ts
+│   │   ├── services/         # 会話サービス
+│   │   │   └── conversation-service.ts
+│   │   ├── tools/           # ツール
+│   │   └── utils/           # ユーティリティ
+│   └── data/
+│       └── personas.ts      # キャラクター設定
+├── frontend/
+│   ├── src/
+│   │   ├── App.tsx         # メインUI
+│   │   ├── persona.ts      # キャラクター情報
+│   │   └── api.ts          # APIクライアント
+│   └── public/assets/      # 画像アセット
+└── README.md
 ```
 
-## 使用方法
+## 特徴
 
-1. 開発サーバーを起動
-2. Mastra Playground にアクセス
-3. 天気エージェントと対話して天気情報を取得
+- **動的会話生成**: LLMによるリアルタイム会話
+- **キャラクター設定**: 各ビルの特徴を反映した個性
+- **知識ベース**: RAGによる関連情報取得
+- **音声合成**: 自然な音声での会話体験
+- **レスポンシブUI**: モバイル・デスクトップ対応
+
+## ライセンス
+
+MIT License
 
 ## 参考リンク
 
-- [Mastra ドキュメント](https://mastra.ai/ja/docs)
-- [インストールガイド](https://mastra.ai/ja/docs/getting-started/installation)
+- [Mastra AI ドキュメント](https://mastra.ai/ja/docs)
+- [OpenAI API](https://platform.openai.com/)
+- [ElevenLabs](https://elevenlabs.io/)
